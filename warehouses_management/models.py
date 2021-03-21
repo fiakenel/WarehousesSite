@@ -10,7 +10,7 @@ class Boxes(models.Model):
     weapon = models.ForeignKey('Weapons', models.CASCADE)
 
     class Meta:
-        managed=False;
+        managed=False
         db_table = 'boxes'
 
 
@@ -19,7 +19,7 @@ class Countries(models.Model):
     country = models.CharField(max_length=50)
 
     class Meta:
-        managed=False;
+        managed=False
         db_table = 'countries'
 
 
@@ -29,7 +29,7 @@ class Racks(models.Model):
     warehouse = models.ForeignKey('Warehouses', models.CASCADE)
 
     class Meta:
-        managed=False;
+        managed=False
         db_table = 'racks'
 
 
@@ -39,7 +39,7 @@ class Suppliers(models.Model):
     name = models.CharField(max_length=100)
 
     class Meta:
-        managed=False;
+        managed=False
         db_table = 'suppliers'
 
 
@@ -49,7 +49,7 @@ class WarehouseSupplierRelationships(models.Model):
     supplier = models.ForeignKey(Suppliers, models.CASCADE)
 
     class Meta:
-        managed=False;
+        managed=False
         db_table = 'warehouse_supplier_relationships'
 
 
@@ -59,7 +59,7 @@ class Warehouses(models.Model):
     address = models.CharField(max_length=100)
 
     class Meta:
-        managed=False;
+        managed=False
         db_table = 'warehouses'
 
 
@@ -68,7 +68,7 @@ class Weapons(models.Model):
     name = models.CharField(max_length=100)
 
     class Meta:
-        managed=False;
+        managed=False
         db_table = 'weapons'
 
 
@@ -80,5 +80,5 @@ class Workers(models.Model):
     wage = models.DecimalField(max_digits=10, decimal_places=2)
 
     class Meta:
-        managed=False;
+        managed=False
         db_table = 'workers'
