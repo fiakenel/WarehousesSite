@@ -6,15 +6,17 @@
   </head>
   <body>
     <h1>Список існуючих складів</h1>
-    <ul>
+    <ol>
       {% for warehouse in warehouses_list %}
       <li>
-        <a href="{% url 'warehouse' warehouse.id %}">
+        <a href="{% url 'wh' warehouse.id %}">
           {{ warehouse.address }}
         </a>
       </li>
       {% endfor %}
-    </ul>
-    <button>Додати склад</button>
+    </ol>
+    <button type='button' onclick="window.location.href='{% url 'whnew' %}'">
+      Додати склад
+    </button>
   </body>
 </html>

@@ -1,20 +1,20 @@
 from django.db import models
 
 
-class Boxes(models.Model):
+class Box(models.Model):
     id = models.BigAutoField(primary_key=True)
     weight = models.BigIntegerField()
     price = models.DecimalField(max_digits=10, decimal_places=2)
     amount = models.BigIntegerField()
-    rack = models.ForeignKey('Racks', models.CASCADE)
-    weapon = models.ForeignKey('Weapons', models.CASCADE)
+    rack = models.ForeignKey('Rack', models.CASCADE)
+    weapon = models.ForeignKey('Weapon', models.CASCADE)
 
     class Meta:
         managed=False
         db_table = 'boxes'
 
 
-class Countries(models.Model):
+class Country(models.Model):
     id = models.BigAutoField(primary_key=True)
     country = models.CharField(max_length=50)
 
@@ -23,19 +23,19 @@ class Countries(models.Model):
         db_table = 'countries'
 
 
-class Racks(models.Model):
+class Rack(models.Model):
     id = models.BigAutoField(primary_key=True)
     max_weight = models.BigIntegerField()
-    warehouse = models.ForeignKey('Warehouses', models.CASCADE)
+    warehouse = models.ForeignKey('Warehouse', models.CASCADE)
 
     class Meta:
         managed=False
         db_table = 'racks'
 
 
-class Suppliers(models.Model):
+class Supplier(models.Model):
     id = models.BigAutoField(primary_key=True)
-    country = models.ForeignKey(Countries, models.CASCADE)
+    country = models.ForeignKey(Country, models.CASCADE)
     name = models.CharField(max_length=100)
 
     class Meta:
@@ -43,17 +43,17 @@ class Suppliers(models.Model):
         db_table = 'suppliers'
 
 
-class WarehouseSupplierRelationships(models.Model):
+class WarehouseSupplierRelationship(models.Model):
     id = models.BigAutoField(primary_key=True)
-    warehouse = models.ForeignKey('Warehouses', models.CASCADE)
-    supplier = models.ForeignKey(Suppliers, models.CASCADE)
+    warehouse = models.ForeignKey('Warehouse', models.CASCADE)
+    supplier = models.ForeignKey(Supplier, models.CASCADE)
 
     class Meta:
         managed=False
         db_table = 'warehouse_supplier_relationships'
 
 
-class Warehouses(models.Model):
+class Warehouse(models.Model):
     id = models.BigAutoField(primary_key=True)
     area = models.BigIntegerField()
     address = models.CharField(max_length=100)
@@ -63,7 +63,7 @@ class Warehouses(models.Model):
         db_table = 'warehouses'
 
 
-class Weapons(models.Model):
+class Weapon(models.Model):
     id = models.BigAutoField(primary_key=True)
     name = models.CharField(max_length=100)
 
@@ -72,11 +72,11 @@ class Weapons(models.Model):
         db_table = 'weapons'
 
 
-class Workers(models.Model):
+class Worker(models.Model):
     id = models.BigAutoField(primary_key=True)
     name = models.CharField(max_length=100)
     phone = models.DecimalField(max_digits=10, decimal_places=0)
-    warehouse = models.ForeignKey(Warehouses, models.CASCADE)
+    warehouse = models.ForeignKey(Warehouse, models.CASCADE)
     wage = models.DecimalField(max_digits=10, decimal_places=2)
 
     class Meta:
