@@ -71,11 +71,15 @@ class WorkerView(generic.DetailView):
     model = Worker
     template_name = 'warehouses/worker.html'
 
-def worker(request, warehouse_id, worker_id):
-    context = {
-        'worker': get_object_or_404(Worker, pk=worker_id),
-              }
-    return render(request, 'warehouses/worker.html', context)
+#def worker(request, warehouse_id, worker_id):
+#    context = {
+#        'worker': get_object_or_404(Worker, pk=worker_id),
+#              }
+#    return render(request, 'warehouses/worker.html', context)
+
+class WorkerCreateView(generic.CreateView):
+    model = Worker
+    fields = ['name', 'phone', 'wage']
 
 def wnew(request, test1, test2):
     pass
