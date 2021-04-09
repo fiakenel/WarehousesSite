@@ -17,6 +17,6 @@ Including another URLconf
 from django.urls import include, path
 
 urlpatterns = [
-    path('warehouses/', include('warehouses_management.urls')),
+    path('whapp/', include('warehouses_management.urls')),
 #    path('admin/', admin.site.urls),
 ]
