@@ -1,18 +1,28 @@
 from django.shortcuts import render, get_object_or_404
-
-# Create your views here.
 from django.http import HttpResponse, HttpResponseRedirect
-from .models import Warehouse, Worker
 from .forms import WHForm
+from django.views import generic
 
-def warehouses_list(request):
-    warehouses_list = Warehouse.objects.all()
-    context = { 'warehouses_list': warehouses_list }
-    return render(request, 'warehouses/warehouses_list.html', context)
+from .models import Warehouse, Worker
 
-def wh(request, warehouse_id):
-    warehouse = get_object_or_404(Warehouse, pk=warehouse_id)
-    return render(request, 'warehouses/wh.html', {'warehouse':warehouse})
+class WarehousesListView(generic.ListView):
+    template_name = 'warehouses/warehouses_list.html'
+
+    def get_queryset(self):
+        return Warehouse.objects.all()
+
+#def warehouses_list(request):
+#    warehouses_list = Warehouse.objects.all()
+#    context = { 'warehouses_list': warehouses_list }
+#    return render(request, 'warehouses/warehouses_list.html', context)
+
+class WarehouseView(generic.DetailView):
+    template_name = 'warehouses/wh.html'
+    model = Warehouse
+
+#def wh(request, warehouse_id):
+#    warehouse = get_object_or_404(Warehouse, pk=warehouse_id)
+#    return render(request, 'warehouses/wh.html', {'warehouse':warehouse})
 
 def whnew(request):
     # if this is a POST request we need to process the form data
@@ -38,16 +48,34 @@ def whdel(request, warehouse_id):
     warehouse.delete()
     return HttpResponseRedirect('/warehouses')
 
-def workers_list(request, warehouse_id):
-    workers_list = Worker.objects.filter(warehouse=warehouse_id)
-    context = {
-        'workers_list': workers_list,
-        'warehouse_id': warehouse_id,
-               }
-    return render(request, 'warehouses/workers_list.html', context)
+class WorkersListView(generic.ListView):
+    template_name = 'warehouses/workers_list.html'
+    context_object_name = 'workers'
+
+    def get_queryset(self):
+        context = {
+            'warehouse_id': self.kwargs['warehouse_id'],
+            'list': Worker.objects.filter(warehouse=self.kwargs['warehouse_id']),
+        }
+        return context
+
+#def workers_list(request, warehouse_id):
+#    workers_list = Worker.objects.filter(warehouse=warehouse_id)
+#    context = {
+#        'workers_list': workers_list,
+#        'warehouse_id': warehouse_id,
+#               }
+#    return render(request, 'warehouses/workers_list.html', context)
+
+class WorkerView(generic.DetailView):
+    model = Worker
+    template_name = 'warehouses/worker.html'
 
 def worker(request, warehouse_id, worker_id):
     context = {
         'worker': get_object_or_404(Worker, pk=worker_id),
               }
     return render(request, 'warehouses/worker.html', context)
+
+def wnew(request, test1, test2):
+    pass

@@ -3,12 +3,15 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('warehouses', views.warehouses_list, name='warehouses_list'),
-    path('warehouses/wh<int:warehouse_id>', views.wh, name='wh'),
+    #warehouses
+    path('warehouses', views.WarehousesListView.as_view(), name='warehouses_list'),
+    path('warehouses/<int:pk>', views.WarehouseView.as_view(), name='wh'),
     path('warehouses/whnew', views.whnew, name='whnew'),
-    path('warehouses/wh<int:warehouse_id>/del', views.whdel, name='whdel'),
-    path('warehouses/wh<int:warehouse_id>/workers', views.workers_list, name='workers_list'),
-    path('warehouses/wh<int:warehouse_id>/w<int:worker_id>', views.worker, name='worker'),
-    #path('warehouses/wh<int:warehouse_id>/wnew', views.wo
+
+    #workers
+    path('warehouses/<int:warehouse_id>/del', views.whdel, name='whdel'),
+    path('warehouses/<int:warehouse_id>/workers', views.WorkersListView.as_view(), name='workers_list'),
+    path('warehouses/<int:warehouse_id>/<int:pk>', views.WorkerView.as_view(), name='worker'),
+    path('warehouses/<int:warehouse_id>/wnew', views.wnew, name='wnew'),
 ]
 

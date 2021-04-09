@@ -7,7 +7,7 @@
   <body>
     <h1>Список існуючих складів</h1>
     <ol>
-      {% for warehouse in warehouses_list %}
+      {% for warehouse in warehouse_list %}
       <li>
         <a href="{% url 'wh' warehouse.id %}">
           {{ warehouse.address }}

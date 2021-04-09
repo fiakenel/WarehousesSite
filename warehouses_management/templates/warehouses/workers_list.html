@@ -2,14 +2,14 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Робітники складу {{warehouse_id}}</title>
+    <title>Робітники складу {{workers.warehouse_id}}</title>
   </head>
   <body>
-    <h1>Робітники складу {{warehouse_id}}:</h1>
+    <h1>Робітники складу {{workers.warehouse_id}}:</h1>
     <ol>
-      {% for worker in workers_list %}
+      {% for worker in workers.list %}
       <li>
-        <a href="{% url 'worker' warehouse_id worker.id %}">
+        <a href="{% url 'worker' workers.warehouse_id worker.id %}">
           {{ worker.name }} {{ worker.phone }}
         </a>
       </li>
