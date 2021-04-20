@@ -80,5 +80,6 @@ class Worker(models.Model):
     wage = models.DecimalField(max_digits=10, decimal_places=2)
 
     class Meta:
+        get_latest_by = 'id'
         managed=False
         db_table = 'workers'

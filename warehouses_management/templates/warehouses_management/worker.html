@@ -10,5 +10,8 @@
     <div>Ім'я: {{worker.name}}</div>
     <div>Телефон: {{worker.phone}}</div>
     <div>З/П: {{worker.wage}}</div>
+    <button onclick="window.location.href='{% url 'delete_worker' worker.warehouse_id worker.id %}'">
+      Видалити робітника
+    </button>
     </p>
   </body>

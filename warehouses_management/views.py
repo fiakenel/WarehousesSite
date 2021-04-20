@@ -1,12 +1,13 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from .forms import WHForm
 from django.views import generic
+from django.urls import reverse_lazy
 
 from .models import Warehouse, Worker
 
 class WarehousesListView(generic.ListView):
-    template_name = 'warehouses/warehouses_list.html'
+    template_name = 'warehouses_management/warehouses_list.html'
 
     def get_queryset(self):
         return Warehouse.objects.all()
@@ -14,15 +15,15 @@ class WarehousesListView(generic.ListView):
 #def warehouses_list(request):
 #    warehouses_list = Warehouse.objects.all()
 #    context = { 'warehouses_list': warehouses_list }
-#    return render(request, 'warehouses/warehouses_list.html', context)
+#    return render(request, 'warehouses_management/warehouses_list.html', context)
 
 class WarehouseView(generic.DetailView):
-    template_name = 'warehouses/wh.html'
+    template_name = 'warehouses_management/wh.html'
     model = Warehouse
 
 #def wh(request, warehouse_id):
 #    warehouse = get_object_or_404(Warehouse, pk=warehouse_id)
-#    return render(request, 'warehouses/wh.html', {'warehouse':warehouse})
+#    return render(request, 'warehouses_management/wh.html', {'warehouse':warehouse})
 
 def whnew(request):
     # if this is a POST request we need to process the form data
@@ -36,12 +37,12 @@ def whnew(request):
                                   area=form.cleaned_data['area'])
             warehouse.save()
             # redirect to a new URL:
-            return HttpResponseRedirect('wh' + str(warehouse.id))
+            return HttpResponseRedirect(f'/whapp/warehouses_management/{warehouse.id}')
 
     # if a GET (or any other method) we'll create a blank form
     else:
         form = WHForm()
-    return render(request, 'warehouses/whnew.html', {'form': form})
+    return render(request, 'warehouses_management/whnew.html', {'form': form})
 
 def whdel(request, warehouse_id):
     warehouse = get_object_or_404(Warehouse, pk=warehouse_id)
@@ -49,7 +50,7 @@ def whdel(request, warehouse_id):
     return HttpResponseRedirect('/warehouses')
 
 class WorkersListView(generic.ListView):
-    template_name = 'warehouses/workers_list.html'
+    template_name = 'warehouses_management/workers_list.html'
     context_object_name = 'workers'
 
     def get_queryset(self):
@@ -65,21 +66,29 @@ class WorkersListView(generic.ListView):
 #        'workers_list': workers_list,
 #        'warehouse_id': warehouse_id,
 #               }
-#    return render(request, 'warehouses/workers_list.html', context)
+#    return render(request, 'warehouses_management/workers_list.html', context)
 
 class WorkerView(generic.DetailView):
     model = Worker
-    template_name = 'warehouses/worker.html'
+    template_name = 'warehouses_management/worker.html'
 
 #def worker(request, warehouse_id, worker_id):
 #    context = {
 #        'worker': get_object_or_404(Worker, pk=worker_id),
 #              }
-#    return render(request, 'warehouses/worker.html', context)
+#    return render(request, 'warehouses_management/worker.html', context)
 
-class WorkerCreateView(generic.CreateView):
+class CreateWorkerView(generic.CreateView):
     model = Worker
-    fields = ['name', 'phone', 'wage']
+    template_name = 'warehouses_management/create_worker.html'
+    fields = ['name', 'phone', 'wage', 'warehouse']
 
-def wnew(request, test1, test2):
-    pass
+    def get_success_url(self):
+        return reverse_lazy('worker', args=[self.kwargs['warehouse_id'], Worker.objects.latest().id])
+
+class DeleteWorkerView(generic.DeleteView):
+    model = Worker
+
+    def get_success_url(self):
+        return reverse_lazy('workers_list', args=[self.kwargs['warehouse_id']])
+
