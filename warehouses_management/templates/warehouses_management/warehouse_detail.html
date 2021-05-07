@@ -11,7 +11,7 @@
     <div>Площа складу: {{warehouse.area}}</div>
     <div><a href="{% url 'workers_list' warehouse.id %}">Список працівників</a></div>
     </p>
-    <button type='button' style='color: red;' onclick="window.location.href='{% url 'whdel' warehouse.id %}'">
+    <button type='button' style='color: red;' onclick="window.location.href='{% url 'warehouse_delete' warehouse.id %}'">
       <!--return confirm('Are you sure?')-->
       Видалити склад
     </button>

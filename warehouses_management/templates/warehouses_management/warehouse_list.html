@@ -9,13 +9,13 @@
     <ol>
       {% for warehouse in warehouse_list %}
       <li>
-        <a href="{% url 'wh' warehouse.id %}">
+        <a href="{% url 'warehouse_detail' warehouse.id %}">
           {{ warehouse.address }}
         </a>
       </li>
       {% endfor %}
     </ol>
-    <button type='button' onclick="window.location.href='{% url 'whnew' %}'">
+    <button type='button' onclick="window.location.href='{% url 'warehouse_create' %}'">
       Додати склад
     </button>
   </body>

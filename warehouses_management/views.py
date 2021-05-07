@@ -11,32 +11,23 @@ class WarehousesListView(generic.ListView):
     def get_queryset(self):
         return Warehouse.objects.all()
 
-#def warehouses_list(request):
-#    warehouses_list = Warehouse.objects.all()
-#    context = { 'warehouses_list': warehouses_list }
-#    return render(request, 'warehouses_management/warehouses_list.html', context)
-
-class WarehouseView(generic.DetailView):
-    template_name = 'warehouses_management/wh.html'
+class WarehouseDetailView(generic.DetailView):
     model = Warehouse
-
-#def wh(request, warehouse_id):
-#    warehouse = get_object_or_404(Warehouse, pk=warehouse_id)
-#    return render(request, 'warehouses_management/wh.html', {'warehouse':warehouse})
+    pk_url_kwarg = 'warehouse_id'
 
 class WarehouseCreate(generic.CreateView):
     model = Warehouse
     fields = ['address', 'area']
 
     def get_success_url(self):
-        return reverse_lazy('wh', args=[Warehouse.objects.latest().id])
+        return reverse_lazy('warehouse_detail', args=[Warehouse.objects.latest().id])
 
 class WarehouseDelete(generic.DeleteView):
     model = Warehouse
     pk_url_kwarg = 'warehouse_id'
 
     def get_success_url(self):
-        return reverse_lazy('warehouses_list')
+        return reverse_lazy('warehouse_list')
 
 class WorkersListView(generic.ListView):
     template_name = 'warehouses_management/workers_list.html'
