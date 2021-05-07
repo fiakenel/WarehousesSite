@@ -32,17 +32,12 @@ class WarehouseCreate(generic.CreateView):
     def get_success_url(self):
         return reverse_lazy('wh', args=[Warehouse.objects.latest().id])
 
-#class WarehouseDelete(generic.DeleteView):
-#    model = Warehouse
-#    pk_url_kwarg = 'warehouse_id'
-#
-#    def get_success_url(self):
-#        return reverse_lazy('warehouses_list')
+class WarehouseDelete(generic.DeleteView):
+    model = Warehouse
+    pk_url_kwarg = 'warehouse_id'
 
-def whdel(request, warehouse_id):
-    warehouse = get_object_or_404(Warehouse, pk=warehouse_id)
-    warehouse.delete()
-    return HttpResponseRedirect('/warehouses')
+    def get_success_url(self):
+        return reverse_lazy('warehouses_list')
 
 class WorkersListView(generic.ListView):
     template_name = 'warehouses_management/workers_list.html'

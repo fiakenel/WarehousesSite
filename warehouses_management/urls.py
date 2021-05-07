@@ -7,7 +7,7 @@ urlpatterns = [
     path('warehouses/', views.WarehousesListView.as_view(), name='warehouses_list'),
     path('warehouses/<int:pk>/', views.WarehouseView.as_view(), name='wh'),
     path('warehouses/whnew/', views.WarehouseCreate.as_view(), name='whnew'),
-    path('warehouses/<int:warehouse_id>/del/', views.whdel, name='whdel'),
+    path('warehouses/<int:warehouse_id>/del/', views.WarehouseDelete.as_view(), name='whdel'),
 
     #workers
     path('warehouses/<int:warehouse_id>/workers/', views.WorkersListView.as_view(), name='workers_list'),
