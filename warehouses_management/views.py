@@ -6,7 +6,7 @@ from django.urls import reverse_lazy
 
 from .models import Warehouse, Worker
 
-class WarehousesListView(generic.ListView):
+class WarehouseListView(generic.ListView):
 
     def get_queryset(self):
         return Warehouse.objects.all()
@@ -29,8 +29,7 @@ class WarehouseDelete(generic.DeleteView):
     def get_success_url(self):
         return reverse_lazy('warehouse_list')
 
-class WorkersListView(generic.ListView):
-    template_name = 'warehouses_management/workers_list.html'
+class WorkerListView(generic.ListView):
     context_object_name = 'workers'
 
     def get_queryset(self):
@@ -40,21 +39,20 @@ class WorkersListView(generic.ListView):
         }
         return context
 
-class WorkerView(generic.DetailView):
+class WorkerDetailView(generic.DetailView):
     model = Worker
-    template_name = 'warehouses_management/worker.html'
+    pk_url_kwarg = 'worker_id'
 
-class CreateWorkerView(generic.CreateView):
+class WorkerCreate(generic.CreateView):
     model = Worker
-    template_name = 'warehouses_management/create_worker.html'
     fields = ['name', 'phone', 'wage', 'warehouse']
 
     def get_success_url(self):
-        return reverse_lazy('worker', args=[self.kwargs['warehouse_id'], Worker.objects.latest().id])
+        return reverse_lazy('worker_detail', args=[self.kwargs['warehouse_id'], Worker.objects.latest().id])
 
-class DeleteWorkerView(generic.DeleteView):
+class WorkerDelete(generic.DeleteView):
     model = Worker
     pk_url_kwarg = 'worker_id'
 
     def get_success_url(self):
-        return reverse_lazy('workers_list', args=[self.kwargs['warehouse_id']])
+        return reverse_lazy('worker_list', args=[self.kwargs['warehouse_id']])
