@@ -7,7 +7,6 @@ from django.urls import reverse_lazy
 from .models import Warehouse, Worker
 
 class WarehousesListView(generic.ListView):
-    template_name = 'warehouses_management/warehouses_list.html'
 
     def get_queryset(self):
         return Warehouse.objects.all()
