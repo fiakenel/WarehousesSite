@@ -25,24 +25,19 @@ class WarehouseView(generic.DetailView):
 #    warehouse = get_object_or_404(Warehouse, pk=warehouse_id)
 #    return render(request, 'warehouses_management/wh.html', {'warehouse':warehouse})
 
-def whnew(request):
-    # if this is a POST request we need to process the form data
-    if request.method == 'POST':
-        # create a form instance and populate it with data from the request:
-        form = WHForm(request.POST)
-        # check whether it's valid:
-        if form.is_valid():
-            # process the data in form.cleaned_data as required
-            warehouse = Warehouse(address=form.cleaned_data['address'],
-                                  area=form.cleaned_data['area'])
-            warehouse.save()
-            # redirect to a new URL:
-            return HttpResponseRedirect(f'/whapp/warehouses_management/{warehouse.id}')
+class WarehouseCreate(generic.CreateView):
+    model = Warehouse
+    fields = ['address', 'area']
 
-    # if a GET (or any other method) we'll create a blank form
-    else:
-        form = WHForm()
-    return render(request, 'warehouses_management/whnew.html', {'form': form})
+    def get_success_url(self):
+        return reverse_lazy('wh', args=[Warehouse.objects.latest().id])
+
+#class WarehouseDelete(generic.DeleteView):
+#    model = Warehouse
+#    pk_url_kwarg = 'warehouse_id'
+#
+#    def get_success_url(self):
+#        return reverse_lazy('warehouses_list')
 
 def whdel(request, warehouse_id):
     warehouse = get_object_or_404(Warehouse, pk=warehouse_id)
@@ -60,23 +55,9 @@ class WorkersListView(generic.ListView):
         }
         return context
 
-#def workers_list(request, warehouse_id):
-#    workers_list = Worker.objects.filter(warehouse=warehouse_id)
-#    context = {
-#        'workers_list': workers_list,
-#        'warehouse_id': warehouse_id,
-#               }
-#    return render(request, 'warehouses_management/workers_list.html', context)
-
 class WorkerView(generic.DetailView):
     model = Worker
     template_name = 'warehouses_management/worker.html'
-
-#def worker(request, warehouse_id, worker_id):
-#    context = {
-#        'worker': get_object_or_404(Worker, pk=worker_id),
-#              }
-#    return render(request, 'warehouses_management/worker.html', context)
 
 class CreateWorkerView(generic.CreateView):
     model = Worker
@@ -88,7 +69,7 @@ class CreateWorkerView(generic.CreateView):
 
 class DeleteWorkerView(generic.DeleteView):
     model = Worker
+    pk_url_kwarg = 'worker_id'
 
     def get_success_url(self):
         return reverse_lazy('workers_list', args=[self.kwargs['warehouse_id']])
-

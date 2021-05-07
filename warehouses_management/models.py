@@ -59,6 +59,7 @@ class Warehouse(models.Model):
     address = models.CharField(max_length=100)
 
     class Meta:
+        get_latest_by = 'id'
         managed=False
         db_table = 'warehouses'
 

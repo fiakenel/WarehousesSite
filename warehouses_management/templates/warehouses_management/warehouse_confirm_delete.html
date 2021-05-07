@@ -5,11 +5,11 @@
     <title>Склади</title>
   </head>
   <body>
-    <h1>Додати склад</h1>
+    <h1>Видалити склад</h1>
     <form method='post'>
       {% csrf_token %}
-      {{ form }}
-      <input type='submit' value='Створити'>
+      <p>Ви впевнені, що хочете видалити {{ object }}?</p>
+      <input type='submit' value='Підтвердити'>
     </form>
   </body>
 </html>
