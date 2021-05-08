@@ -6,6 +6,9 @@ from django.urls import reverse_lazy
 
 from .models import Warehouse, Worker
 
+class HomepageView(generic.TemplateView):
+    template_name = 'warehouses_management/home.html'
+
 class WarehouseListView(generic.ListView):
     model = Warehouse
 
