@@ -5,6 +5,10 @@
     <title>Працівник {{worker.id}}</title>
   </head>
   <body>
+    <nav>
+      <a href="{% url 'homepage' %}">Home</a> | 
+      <a href="{% url 'warehouse_list' %}">Склади</a>
+    </nav>
     <h1>Працівник {{worker.id}}</h1>
     <p>
     <div>Ім'я: {{worker.name}}</div>

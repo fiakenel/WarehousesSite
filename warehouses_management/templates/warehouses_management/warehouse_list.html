@@ -5,6 +5,10 @@
     <title>Склади</title>
   </head>
   <body>
+    <nav>
+      <a href="{% url 'homepage' %}">Home</a> | 
+      <a href="{% url 'warehouse_list' %}">Склади</a>
+    </nav>
     <h1>Список існуючих складів</h1>
     <ol>
       {% for warehouse in warehouse_list %}
