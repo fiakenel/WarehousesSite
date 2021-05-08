@@ -2,20 +2,20 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Робітники складу {{workers.warehouse_id}}</title>
+    <title>Робітники складу {{warehouse_id}}</title>
   </head>
   <body>
-    <h1>Робітники складу {{workers.warehouse_id}}:</h1>
+    <h1>Робітники складу {{warehouse_id}}:</h1>
     <ol>
-      {% for worker in workers.list %}
+      {% for worker in worker_list %}
       <li>
-        <a href="{% url 'worker' workers.warehouse_id worker.id %}">
+        <a href="{% url 'worker_detail' warehouse_id worker.id %}">
           {{ worker.name }} {{ worker.phone }}
         </a>
       </li>
       {% endfor %}
     </ol>
-    <button type='button' onclick="window.location.href='{% url 'create_worker' workers.warehouse_id %}'">
+    <button type='button' onclick="window.location.href='{% url 'worker_create' warehouse_id %}'">
       Додати робітника
     </button>
   </body>

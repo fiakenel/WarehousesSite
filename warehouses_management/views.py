@@ -7,9 +7,10 @@ from django.urls import reverse_lazy
 from .models import Warehouse, Worker
 
 class WarehouseListView(generic.ListView):
+    model = Warehouse
 
-    def get_queryset(self):
-        return Warehouse.objects.all()
+#    def get_queryset(self):
+#        return Warehouse.objects.all()
 
 class WarehouseDetailView(generic.DetailView):
     model = Warehouse
@@ -30,13 +31,12 @@ class WarehouseDelete(generic.DeleteView):
         return reverse_lazy('warehouse_list')
 
 class WorkerListView(generic.ListView):
-    context_object_name = 'workers'
+    model = Worker
+    context_object_name = 'worker_list'
 
-    def get_queryset(self):
-        context = {
-            'warehouse_id': self.kwargs['warehouse_id'],
-            'list': Worker.objects.filter(warehouse=self.kwargs['warehouse_id']),
-        }
+    def get_context_data(self, **kwargs):
+        context = super(WorkerListView, self).get_context_data(**kwargs)
+        context['warehouse_id'] = self.kwargs['warehouse_id']
         return context
 
 class WorkerDetailView(generic.DetailView):
