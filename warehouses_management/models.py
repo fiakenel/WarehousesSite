@@ -9,6 +9,9 @@ class Box(models.Model):
     rack = models.ForeignKey('Rack', models.CASCADE)
     weapon = models.ForeignKey('Weapon', models.CASCADE)
 
+#    def __str__(self):
+#        return 
+
     class Meta:
         managed=False
         db_table = 'boxes'
@@ -58,6 +61,9 @@ class Warehouse(models.Model):
     area = models.BigIntegerField()
     address = models.CharField(max_length=100)
 
+    def __str__(self):
+        return str(self.id) + ' ' + str(self.address)
+
     class Meta:
         get_latest_by = 'id'
         managed=False
@@ -79,6 +85,9 @@ class Worker(models.Model):
     phone = models.DecimalField(max_digits=10, decimal_places=0)
     warehouse = models.ForeignKey(Warehouse, models.CASCADE)
     wage = models.DecimalField(max_digits=10, decimal_places=2)
+
+    def __str__(self):
+        return str(self.id) + ' ' + str(self.name)
 
     class Meta:
         get_latest_by = 'id'
