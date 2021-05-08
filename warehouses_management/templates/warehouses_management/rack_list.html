@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Полиці складу {{warehouse_id}}</title>
+  </head>
+  <body>
+    <nav>
+      <a href="{% url 'homepage' %}">Home</a> | 
+      <a href="{% url 'warehouse_list' %}">Склади</a>
+    </nav>
+    <h1>Полиці складу {{warehouse_id}}:</h1>
+    <ol>
+      {% for rack in rack_list%}
+      <li>
+        <a href="{% url 'rack_detail' warehouse_id rack.id %}">
+          {{ rack.id }}
+        </a>
+      </li>
+      {% endfor %}
+    </ol>
+    <button type='button' onclick="window.location.href='{% url 'rack_create' warehouse_id %}'">
+      Додати полицю
+    </button>
+  </body>

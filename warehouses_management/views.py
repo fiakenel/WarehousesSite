@@ -4,7 +4,7 @@ from .forms import WHForm
 from django.views import generic
 from django.urls import reverse_lazy
 
-from .models import Warehouse, Worker
+from .models import *
 
 class HomepageView(generic.TemplateView):
     template_name = 'warehouses_management/home.html'
@@ -59,3 +59,12 @@ class WorkerDelete(generic.DeleteView):
 
     def get_success_url(self):
         return reverse_lazy('worker_list', args=[self.kwargs['warehouse_id']])
+
+class RackListView(generic.ListView):
+    model = Rack
+    context_object_name = 'rack_list'
+
+    def get_context_data(self, kwargs):
+        context = super(RackListView, self).get_context_data(**kwargs)
+        context['warehouse_id'] = self.kwargs['warehouse_id']
+        return context
