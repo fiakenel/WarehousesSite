@@ -9,13 +9,11 @@
       <a href="{% url 'homepage' %}">Home</a>
     </nav>
     <h1>Склад {{warehouse.id}}</h1>
-    <p>
     <div>Адреса: {{warehouse.address}}</div>
     <div>Площа складу: {{warehouse.area}}</div>
     <div><a href="{% url 'worker_list' warehouse.id %}">Список працівників</a></div>
-    </p>
+    <div><a href="{% url 'rack_list' warehouse.id %}">Список полиць</a></div>
     <button type='button' style='color: red;' onclick="window.location.href='{% url 'warehouse_delete' warehouse.id %}'">
-      <!--return confirm('Are you sure?')-->
       Видалити склад
     </button>
   </body>

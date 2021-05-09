@@ -11,7 +11,7 @@
     </nav>
     <h1>Полиця {{rack.id}}</h1>
     <div>Даних нема</div>
-    <button onclick="window.location.href='{% url 'delete_rack. rack.warehouse_id rack.id %}'">
-      Видалити робітника
+    <button onclick="window.location.href='{% url 'rack_delete' rack.warehouse_id rack.id %}'">
+      Видалити полицю
     </button>
   </body>

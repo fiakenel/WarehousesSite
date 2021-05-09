@@ -15,6 +15,13 @@ urlpatterns = [
     path('warehouses/<int:warehouse_id>/workers/', views.WorkerListView.as_view(), name='worker_list'),
     path('warehouses/<int:warehouse_id>/workers/<int:worker_id>/', views.WorkerDetailView.as_view(), name='worker_detail'),
     path('warehouses/<int:warehouse_id>/workers/create/', views.WorkerCreate.as_view(), name='worker_create'),
-    path('warehouses/<int:warehouse_id>/workers/<int:worker_id>/delete/', views.WorkerDelete.as_view(), name='delete_worker'),
+    path('warehouses/<int:warehouse_id>/workers/<int:worker_id>/delete/', views.WorkerDelete.as_view(), name='worker_delete'),
+
+    #racks
+    path('warehouses/<int:warehouse_id>/racks/', views.RackListView.as_view(), name='rack_list'),
+    path('warehouses/<int:warehouse_id>/racks/<int:rack_id>/', views.RackDetailView.as_view(), name='rack_detail'),
+    path('warehouses/<int:warehouse_id>/racks/create/', views.RackCreate.as_view(), name='rack_create'),
+    path('warehouses/<int:warehouse_id>/racks/<int:rack_id>/delete/', views.RackDelete.as_view(), name='rack_delete'),
+
 ]
 
