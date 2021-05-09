@@ -80,8 +80,9 @@ class RackCreate(generic.CreateView):
     def get_success_url(self):
         return reverse_lazy('rack_detail', args=[self.kwargs['warehouse_id'], Rack.objects.latest().id])
 
-#class RackDelete(generic.DeleteView):
-#    model = Rack
-#    pk_url_kwarg = 'rack_id'
-#
-#    def 
+class RackDelete(generic.DeleteView):
+    model = Rack
+    pk_url_kwarg = 'rack_id'
+
+    def get_success_url(self):
+        return reverse_lazy('rack_list', args=[self.kwargs['warehouse_id']])
