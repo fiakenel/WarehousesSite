@@ -68,3 +68,20 @@ class RackListView(generic.ListView):
         context = super(RackListView, self).get_context_data(**kwargs)
         context['warehouse_id'] = self.kwargs['warehouse_id']
         return context
+
+class RackDetailView(generic.DetailView):
+    model = Rack
+    pk_url_kwarg = 'rack_id'
+
+class RackCreate(generic.CreateView):
+    model = Rack
+    fields = ['max_weight', 'warehouse_id']
+
+    def get_success_url(self):
+        return reverse_lazy('rack_detail', args=[self.kwargs['warehouse_id'], Rack.objects.latest().id])
+
+#class RackDelete(generic.DeleteView):
+#    model = Rack
+#    pk_url_kwarg = 'rack_id'
+#
+#    def 

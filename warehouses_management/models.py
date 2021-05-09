@@ -32,6 +32,7 @@ class Rack(models.Model):
     warehouse = models.ForeignKey('Warehouse', models.CASCADE)
 
     class Meta:
+        get_latest_by = 'id'
         managed=False
         db_table = 'racks'
 
