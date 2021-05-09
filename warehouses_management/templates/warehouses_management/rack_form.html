@@ -1,0 +1,15 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Полиці</title>
+  </head>
+  <body>
+    <h1>Додати полицю</h1>
+    <form method='post'>
+      {% csrf_token %}
+      {{ form }}
+      <input type='submit' value='Створити'>
+    </form>
+  </body>
+</html>
