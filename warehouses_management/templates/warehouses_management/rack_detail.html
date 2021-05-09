@@ -1,0 +1,17 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Полиця {{rack.id}}</title>
+  </head>
+  <body>
+    <nav>
+      <a href="{% url 'homepage' %}">Home</a> | 
+      <a href="{% url 'warehouse_list' %}">Склади</a>
+    </nav>
+    <h1>Полиця {{rack.id}}</h1>
+    <div>Даних нема</div>
+    <button onclick="window.location.href='{% url 'delete_rack. rack.warehouse_id rack.id %}'">
+      Видалити робітника
+    </button>
+  </body>
