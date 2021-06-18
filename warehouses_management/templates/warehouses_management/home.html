@@ -4,10 +4,13 @@
     <meta charset="utf-8">
     <title>Вітаю!</title>
   </head>
-  <body>
     <nav>
-      <a href="{% url 'homepage' %}">Home</a> | 
-      <a href="{% url 'warehouse_list' %}">Склади</a>
+      <a href="{% url 'homepage' %}">Головна</a> |
+      <a href="{% url 'warehouse_list' %}">Склади</a> |
+      <a href="{% url 'worker_list' 0 %}">Робітники</a> |
+      <a href="{% url 'rack_list' 0 %}">Полиці</a> |
+      <a href="{% url 'box_list' 0 0 %}">Ящики</a> |
+      <a href="{% url 'weapon_list' %}">Зброя</a> 
     </nav>
     <h1>Головна сторінка</h1>
     <div>Вітаю на головній сторінці мого сайту!</div>

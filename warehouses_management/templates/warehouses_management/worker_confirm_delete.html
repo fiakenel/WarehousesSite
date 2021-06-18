@@ -8,7 +8,7 @@
     <h1>Видалити робітника</h1>
     <form method='post'>
       {% csrf_token %}
-      <p>Ви впевнені, що хочете видалити {{ object }}?</p>
+      <p>Увага, {{object}} буде видалений. Продовжити?</p>
       <input type='submit' value='Підтвердити'>
     </form>
   </body>

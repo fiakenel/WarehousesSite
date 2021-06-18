@@ -2,24 +2,57 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Робітники складу {{warehouse_id}}</title>
+    <title>Робітники</title>
   </head>
   <body>
     <nav>
-      <a href="{% url 'homepage' %}">Home</a> | 
-      <a href="{% url 'warehouse_list' %}">Склади</a>
+      <a href="{% url 'homepage' %}">Головна</a> |
+      <a href="{% url 'warehouse_list' %}">Склади</a> |
+      <a href="{% url 'worker_list' 0 %}">Робітники</a> |
+      <a href="{% url 'rack_list' 0 %}">Полиці</a> |
+      <a href="{% url 'box_list' 0 0 %}">Ящики</a> |
+      <a href="{% url 'weapon_list' %}">Зброя</a> 
     </nav>
-    <h1>Робітники складу {{warehouse_id}}:</h1>
-    <ol>
+    {% if warehouse_id == 0 %}
+    <h1>Робітники</h1>
+    {% else %}
+    <h1>Робітники складу {{warehouse_id}}</h1>
+    {% endif %}
+    
+    <div>
+          <button type='button' onclick="window.location.href='{% url 'worker_create' warehouse_id %}'">
+                  Додати робітника
+          </button>
+    </div>
+
+    <p>
+    <div>
+      {% if worker_list %}
+    <table border='1'>
+      <tr>
+        <th>Код</th>
+        <th>Прізвище</th>
+        <th>Телефон</th>
+        <th>З/П</th>
+        <th>Код складу</th>
+      </tr>
       {% for worker in worker_list %}
-      <li>
-        <a href="{% url 'worker_detail' warehouse_id worker.id %}">
-          {{ worker.name }} {{ worker.phone }}
-        </a>
-      </li>
+      <tr>
+      <td>{{ worker.id }}</td>
+      <td>{{ worker.name }}</td>
+      <td>{{ worker.phone }}</td>
+      <td>{{ worker.wage }}</td>
+      <td>{{ worker.warehouse_id }}</td>
+      <td>
+      <div>Редагувати</div>
+      <div><a href="{% url 'worker_delete' warehouse_id worker.id %}">Видалити</a></div>
+      </td>
+      </tr>
       {% endfor %}
-    </ol>
-    <button type='button' onclick="window.location.href='{% url 'worker_create' warehouse_id %}'">
-      Додати робітника
-    </button>
+    </table>
+    {% else %}
+    На складі не працює жодного робітника.
+    {% endif %}
+    </div>
+    </p>
   </body>

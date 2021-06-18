@@ -1,13 +1,16 @@
 from django.db import models
 
+from django.core.exceptions import ValidationError
+from django.utils.translation import gettext_lazy as _
+
 
 class Box(models.Model):
     id = models.BigAutoField(primary_key=True)
-    weight = models.BigIntegerField()
-    price = models.DecimalField(max_digits=10, decimal_places=2)
-    amount = models.BigIntegerField()
-    rack = models.ForeignKey('Rack', models.CASCADE)
-    weapon = models.ForeignKey('Weapon', models.CASCADE)
+    weight = models.BigIntegerField(verbose_name='Вага')
+    price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Ціна')
+    amount = models.BigIntegerField(verbose_name='Кількість')
+    rack = models.ForeignKey('Rack', models.CASCADE, verbose_name='Полиця')
+    weapon = models.ForeignKey('Weapon', models.CASCADE, verbose_name='Зброя')
 
 #    def __str__(self):
 #        return 
@@ -30,6 +33,9 @@ class Rack(models.Model):
     id = models.BigAutoField(primary_key=True)
     max_weight = models.BigIntegerField()
     warehouse = models.ForeignKey('Warehouse', models.CASCADE)
+
+    def __str__(self):
+        return f'полиця {self.id}'
 
     class Meta:
         get_latest_by = 'id'
@@ -56,14 +62,17 @@ class WarehouseSupplierRelationship(models.Model):
         managed=False
         db_table = 'warehouse_supplier_relationships'
 
+def validate_address_unique(address):
+    if Warehouse.objects.filter(address=address).exists():
+        raise ValidationError(_('Склад з такою адресою вже існує'))
 
 class Warehouse(models.Model):
     id = models.BigAutoField(primary_key=True)
-    area = models.BigIntegerField()
-    address = models.CharField(max_length=100)
+    area = models.BigIntegerField(verbose_name='Площа')
+    address = models.CharField(max_length=100, verbose_name='Адреса', validators=[validate_address_unique])
 
     def __str__(self):
-        return str(self.id) + ' ' + str(self.address)
+        return f'cклад {str(self.id)} за адресою {str(self.address)}'
 
     class Meta:
         get_latest_by = 'id'
@@ -71,24 +80,34 @@ class Warehouse(models.Model):
         db_table = 'warehouses'
 
 
+def validate_weapon_unique(weapon):
+    if Weapon.objects.filter(name=weapon).exists():
+        raise ValidationError(_('Зброя з такою назвою вже існує'))
+
 class Weapon(models.Model):
     id = models.BigAutoField(primary_key=True)
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, verbose_name='Назва', validators=[validate_weapon_unique])
 
+    def __str__(self):
+        return f'зброя {str(self.name)}'
     class Meta:
         managed=False
         db_table = 'weapons'
 
 
+def validate_phone_unique(phone):
+    if Worker.objects.filter(phone=phone).exists():
+        raise ValidationError(_('Робітник з таким номером вже існує'))
+
 class Worker(models.Model):
-    id = models.BigAutoField(primary_key=True)
-    name = models.CharField(max_length=100)
-    phone = models.DecimalField(max_digits=10, decimal_places=0)
-    warehouse = models.ForeignKey(Warehouse, models.CASCADE)
-    wage = models.DecimalField(max_digits=10, decimal_places=2)
+    id = models.BigAutoField(primary_key=True, verbose_name='Код')
+    name = models.CharField(max_length=100, verbose_name='Прізвище')
+    phone = models.DecimalField(max_digits=10, decimal_places=0, verbose_name='Телефон', validators=[validate_phone_unique])
+    warehouse = models.ForeignKey(Warehouse, models.CASCADE, verbose_name='Склад')
+    wage = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='З/П')
 
     def __str__(self):
-        return str(self.id) + ' ' + str(self.name)
+        return f'робітник {str(self.name)} під кодом {str(self.id)}'
 
     class Meta:
         get_latest_by = 'id'

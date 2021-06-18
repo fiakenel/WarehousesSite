@@ -2,24 +2,56 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Полиці складу {{warehouse_id}}</title>
+    <title>Полиці</title>
   </head>
   <body>
     <nav>
-      <a href="{% url 'homepage' %}">Home</a> | 
-      <a href="{% url 'warehouse_list' %}">Склади</a>
+      <a href="{% url 'homepage' %}">Головна</a> |
+      <a href="{% url 'warehouse_list' %}">Склади</a> |
+      <a href="{% url 'worker_list' 0 %}">Робітники</a> |
+      <a href="{% url 'rack_list' 0 %}">Полиці</a> |
+      <a href="{% url 'box_list' 0 0 %}">Ящики</a> |
+      <a href="{% url 'weapon_list' %}">Зброя</a> 
     </nav>
-    <h1>Полиці складу {{warehouse_id}}:</h1>
-    <ol>
-      {% for rack in rack_list%}
-      <li>
-        <a href="{% url 'rack_detail' warehouse_id rack.id %}">
-          {{ rack.id }}
-        </a>
-      </li>
-      {% endfor %}
-    </ol>
+    {% if warehouse_id == 0 %}
+    <h1>Полиці</h1>
+    {% else %}
+    <h1>Полиці складу {{warehouse_id}}</h1>
+    {% endif %}
+
+    <div>
     <button type='button' onclick="window.location.href='{% url 'rack_create' warehouse_id %}'">
       Додати полицю
     </button>
+    </div>
+
+    <p>
+    <div>
+      {% if rack_list %}
+    <table border='1'>
+      <tr>
+        <th>Код</th>
+        <th>Макс. вага</th>
+        <th>Код складу</th>
+        <th>Інше</th>
+      </tr>
+      {% for rack in rack_list%}
+      <tr>
+      <td>{{rack.id}}</td>
+      <td>{{rack.max_weight}}</td>
+      <td>{{rack.warehouse_id}}</td>
+      <td><a href="{% url 'box_list' warehouse_id rack.id %}">Список ящиків</a></td>
+      <td>
+        <div>Редагувати</div>
+        <div><a href="{% url 'rack_delete' warehouse_id rack.id %}">Видалити</a></div>
+      </td>
+      </tr>
+      {% endfor %}
+    </table>
+    {% else %}
+    На складі немає жодної полиці.
+    {% endif %}
+    </div>
+    </p>
+
   </body>

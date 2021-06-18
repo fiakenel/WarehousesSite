@@ -1,5 +1,7 @@
-from django import forms
-
-class WHForm (forms.Form):
-    address = forms.CharField(label='Адреса', max_length=100)
-    area = forms.IntegerField(label='Площа')
+#from django import forms
+#from .models import *
+#
+#class WarehouseForm (forms.ModelForm):
+#    class Meta:
+#        model = Warehouse
+#        fields = ['address', 'area']

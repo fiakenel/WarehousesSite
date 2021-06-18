@@ -6,12 +6,13 @@
   </head>
   <body>
     <nav>
-      <a href="{% url 'homepage' %}">Home</a> | 
+      <a href="{% url 'homepage' %}">Головна</a> | 
       <a href="{% url 'warehouse_list' %}">Склади</a>
     </nav>
     <h1>Полиця {{rack.id}}</h1>
-    <div>Даних нема</div>
-    <button onclick="window.location.href='{% url 'rack_delete' rack.warehouse_id rack.id %}'">
-      Видалити полицю
-    </button>
+    <p>
+    <div>Максимальна вага: {{rack.max_weight}}</div>
+    <div>Список ящиків</div>
+    </p>
+    <div><a href="{% url 'rack_list' rack.warehouse_id %}">Список</a></div>
   </body>

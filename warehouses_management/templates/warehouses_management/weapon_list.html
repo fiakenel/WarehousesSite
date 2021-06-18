@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Склади</title>
+    <title>Зброя</title>
   </head>
   <body>
     <nav>
@@ -14,39 +14,36 @@
       <a href="{% url 'weapon_list' %}">Зброя</a> 
     </nav>
 
-    <h1>Склади</h1>
+    <h1>Зброя</h1>
     
     <div>
-    <button type='button' onclick="window.location.href='{% url 'warehouse_create' %}'">
-      Додати склад
+    <button type='button' onclick="window.location.href='{% url 'weapon_create' %}'">
+      Додати зброю
     </button>
     </div>
 
     <p>
     <div>
+      {% if weapon_list %}
     <table border='1'>
       <tr>
         <th>Код</th>
-        <th>Адреса</th>
-        <th>Площа</th>
-        <th>Інше</th>
+        <th>Назва</th>
       </tr>
-      {% for warehouse in warehouse_list %}
+      {% for weapon in weapon_list %}
       <tr>
-      <td>{{warehouse.id}}</td>
-      <td>{{warehouse.address}}</td>
-      <td>{{warehouse.area}}</td>
-      <td>
-        <div><a href="{% url 'worker_list' warehouse.id %}">Робітники</a></div>
-        <div><a href="{% url 'rack_list' warehouse.id %}">Полиці</a></div>
-      </td>
+      <td>{{weapon.id}}</td>
+      <td>{{weapon.name}}</td>
       <td>
         <div>Редагувати</div>
-        <div><a href="{% url 'warehouse_delete' warehouse.id %}">Видалити</a></div> 
+        <div><a href="{% url 'weapon_delete' weapon.id %}">Видалити</a></div> 
       </td>
       </tr>
       {% endfor %}
     </table>
+    {% else %}
+    Зброя відсутня
+    {% endif %}
     </div>
     </p>
 
