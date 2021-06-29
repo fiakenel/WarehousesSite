@@ -3,5 +3,5 @@
 
 ![main menu](https://github.com/fiakenel/WarehousesLifeSite/blob/main/warehouse1.png?raw=true)
 ![client info](https://github.com/fiakenel/WarehousesLifeSite/blob/main/warehous2.png?raw=true)
-![client](WarehousesLifeSite/blob/main/warehouse3.png?raw=true)
+![client](https://github.com/fiakenel/WarehousesLifeSite/blob/main/warehouse3.png?raw=true)
 ![querries](https://github.com/fiakenel/WarehousesSite/blob/main/warehouse4.png?raw=true)
