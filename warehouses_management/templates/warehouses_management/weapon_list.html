@@ -3,20 +3,25 @@
   <head>
     <meta charset="utf-8">
     <title>Зброя</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
   </head>
   <body>
-    <nav>
-      <a href="{% url 'homepage' %}">Головна</a> |
-      <a href="{% url 'warehouse_list' %}">Склади</a> |
-      <a href="{% url 'worker_list' 0 %}">Робітники</a> |
-      <a href="{% url 'rack_list' 0 %}">Полиці</a> |
-      <a href="{% url 'box_list' 0 0 %}">Ящики</a> |
-      <a href="{% url 'weapon_list' %}">Зброя</a> 
+    <nav class='navMenu'>
+      {% load static %}
+      <span><img src="{% static 'media/logo2.png' %}" width='60' height='60'/></span>
+      <a class='navElm' href="{% url 'homepage' %}">Головна</a>
+      <a class='navElm' href="{% url 'warehouse_list' %}">Склади</a>
+      <a class='navElm' href="{% url 'worker_list' 0 %}">Робітники</a>
+      <a class='navElm' href="{% url 'box_list' 0 %}">Ящики</a>
+      <a class='navElm' href="{% url 'weapon_list' %}">Зброя</a>
+      <a class='navElm' href="{% url 'country_list' %}">Країни</a>
+      <a class='navElm' href="{% url 'supplier_list' %}">Постачальники</a>
     </nav>
 
     <h1>Зброя</h1>
     
-    <div>
+    <div style='padding: 10px 25px;'>
     <button type='button' onclick="window.location.href='{% url 'weapon_create' %}'">
       Додати зброю
     </button>
@@ -25,17 +30,18 @@
     <p>
     <div>
       {% if weapon_list %}
-    <table border='1'>
+    <table class='show' >
       <tr>
         <th>Код</th>
         <th>Назва</th>
+        <th></th>
       </tr>
       {% for weapon in weapon_list %}
       <tr>
       <td>{{weapon.id}}</td>
       <td>{{weapon.name}}</td>
       <td>
-        <div>Редагувати</div>
+        <div><a href="{% url 'weapon_update' weapon.id %}">Редагувати</a></div> 
         <div><a href="{% url 'weapon_delete' weapon.id %}">Видалити</a></div> 
       </td>
       </tr>

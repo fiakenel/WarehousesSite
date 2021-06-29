@@ -3,13 +3,17 @@
   <head>
     <meta charset="utf-8">
     <title>Склади</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
   </head>
   <body>
     <h1>Видалити робітника</h1>
     <form method='post'>
       {% csrf_token %}
-      <p>Увага, {{object}} буде видалений. Продовжити?</p>
+      <p>Увага, робітник {{object}} буде видалений. Продовжити?</p>
+      <div>
       <input type='submit' value='Підтвердити'>
+      </div>
     </form>
   </body>
 </html>

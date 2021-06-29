@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Робітники</title>
+    <title>Постачальники</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
   </head>
@@ -18,47 +18,42 @@
       <a class='navElm' href="{% url 'country_list' %}">Країни</a>
       <a class='navElm' href="{% url 'supplier_list' %}">Постачальники</a>
     </nav>
-    {% if warehouse_id == 0 %}
-    <h1>Робітники</h1>
-    {% else %}
-    <h1>Робітники складу {{warehouse_id}}</h1>
-    {% endif %}
+
+    <h1>Постачальники</h1>
     
     <div style='padding: 10px 25px;'>
-          <button type='button' onclick="window.location.href='{% url 'worker_create' warehouse_id %}'">
-                  Додати робітника
-          </button>
+    <button type='button' onclick="window.location.href='{% url 'supplier_create' %}'">
+      Додати постачальника
+    </button>
     </div>
 
     <p>
     <div>
-      {% if worker_list %}
-    <table class='show'>
+      {% if supplier_list %}
+    <table class='show' >
       <tr>
         <th>Код</th>
-        <th>Прізвище</th>
-        <th>Телефон</th>
-        <th>З/П</th>
-        <th>Склад</th>
+        <th>Назва</th>
+        <th>Країна</th>
         <th></th>
       </tr>
-      {% for worker in worker_list %}
+      {% for supplier in supplier_list %}
       <tr>
-      <td>{{ worker.id }}</td>
-      <td>{{ worker.name }}</td>
-      <td>{{ worker.phone }}</td>
-      <td>{{ worker.wage }}</td>
-      <td>{{ worker.warehouse }}</td>
+      <td>{{supplier.id}}</td>
+      <td>{{supplier.name}}</td>
+      <td>{{supplier.country}}</td>
       <td>
-      <div><a href="{% url 'worker_update' warehouse_id worker.id %}">Редагувати</a></div>
-      <div><a href="{% url 'worker_delete' warehouse_id worker.id %}">Видалити</a></div>
+        <div><a href="{% url 'supplier_update' supplier.id %}">Редагувати</a></div> 
+        <div><a href="{% url 'supplier_delete' supplier.id %}">Видалити</a></div> 
       </td>
       </tr>
       {% endfor %}
     </table>
     {% else %}
-    На складі не працює жодного робітника.
+    Постачальники відсутні
     {% endif %}
     </div>
     </p>
+
   </body>
+</html>

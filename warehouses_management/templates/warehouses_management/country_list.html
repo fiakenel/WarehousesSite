@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Робітники</title>
+    <title>Країни</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
   </head>
@@ -18,47 +18,40 @@
       <a class='navElm' href="{% url 'country_list' %}">Країни</a>
       <a class='navElm' href="{% url 'supplier_list' %}">Постачальники</a>
     </nav>
-    {% if warehouse_id == 0 %}
-    <h1>Робітники</h1>
-    {% else %}
-    <h1>Робітники складу {{warehouse_id}}</h1>
-    {% endif %}
+
+    <h1>Країни</h1>
     
     <div style='padding: 10px 25px;'>
-          <button type='button' onclick="window.location.href='{% url 'worker_create' warehouse_id %}'">
-                  Додати робітника
-          </button>
+    <button type='button' onclick="window.location.href='{% url 'country_create' %}'">
+      Додати країну
+    </button>
     </div>
 
     <p>
     <div>
-      {% if worker_list %}
-    <table class='show'>
+      {% if country_list %}
+    <table class='show' >
       <tr>
         <th>Код</th>
-        <th>Прізвище</th>
-        <th>Телефон</th>
-        <th>З/П</th>
-        <th>Склад</th>
+        <th>Назва</th>
         <th></th>
       </tr>
-      {% for worker in worker_list %}
+      {% for country in country_list %}
       <tr>
-      <td>{{ worker.id }}</td>
-      <td>{{ worker.name }}</td>
-      <td>{{ worker.phone }}</td>
-      <td>{{ worker.wage }}</td>
-      <td>{{ worker.warehouse }}</td>
+      <td>{{country.id}}</td>
+      <td>{{country.country}}</td>
       <td>
-      <div><a href="{% url 'worker_update' warehouse_id worker.id %}">Редагувати</a></div>
-      <div><a href="{% url 'worker_delete' warehouse_id worker.id %}">Видалити</a></div>
+        <div><a href="{% url 'country_update' country.id %}">Редагувати</a></div> 
+        <div><a href="{% url 'country_delete' country.id %}">Видалити</a></div> 
       </td>
       </tr>
       {% endfor %}
     </table>
     {% else %}
-    На складі не працює жодного робітника.
+    Країни відсутні
     {% endif %}
     </div>
     </p>
+
   </body>
+</html>

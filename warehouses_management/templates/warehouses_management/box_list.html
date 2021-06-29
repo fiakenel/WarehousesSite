@@ -3,24 +3,29 @@
   <head>
     <meta charset="utf-8">
     <title>Ящики</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
   </head>
   <body>
-    <nav>
-      <a href="{% url 'homepage' %}">Головна</a> |
-      <a href="{% url 'warehouse_list' %}">Склади</a> |
-      <a href="{% url 'worker_list' 0 %}">Робітники</a> |
-      <a href="{% url 'rack_list' 0 %}">Полиці</a> |
-      <a href="{% url 'box_list' 0 0 %}">Ящики</a> |
-      <a href="{% url 'weapon_list' %}">Зброя</a> 
+    <nav class='navMenu'>
+      {% load static %}
+      <span><img src="{% static 'media/logo2.png' %}" width='60' height='60'/></span>
+      <a class='navElm' href="{% url 'homepage' %}">Головна</a>
+      <a class='navElm' href="{% url 'warehouse_list' %}">Склади</a>
+      <a class='navElm' href="{% url 'worker_list' 0 %}">Робітники</a>
+      <a class='navElm' href="{% url 'box_list' 0 %}">Ящики</a>
+      <a class='navElm' href="{% url 'weapon_list' %}">Зброя</a>
+      <a class='navElm' href="{% url 'country_list' %}">Країни</a>
+      <a class='navElm' href="{% url 'supplier_list' %}">Постачальники</a>
     </nav>
-    {% if rack_id == 0 %}
+    {% if warehouse_id == 0 %}
     <h1>Ящики</h1>
     {% else %}
-    <h1>Ящики полиці {{rack_id}}</h1>
+    <h1>Ящики складу {{warehouse_id}}</h1>
     {% endif %}
 
-    <div>
-    <button type='button' onclick="window.location.href='{% url 'box_create' warehouse_id rack_id %}'">
+    <div style='padding: 10px 25px;'>
+    <button type='button' onclick="window.location.href='{% url 'box_create' warehouse_id %}'">
       Додати ящик
     </button>
     </div>
@@ -28,18 +33,17 @@
     <p>
     <div>
       {% if box_list %}
-    <table border='1'>
+    <table class='show' >
       <tr>
         <th>Код</th>
-        <th>Вага</th>
         <th>Ціна</th>
         <th>К-ть зброї</th>
         <th>Зброя</th>
+        <th></th>
       </tr>
       {% for box in box_list%}
       <tr>
       <td>{{box.id}}</td>
-      <td>{{box.weight}}</td>
       <td>{{box.price}}</td>
       <td>{{box.amount}}</td>
       <td>
@@ -50,8 +54,8 @@
         {% endfor %}
       </td>
       <td>
-        <div>Редагувати</div>
-        <div><a href="{% url 'box_delete' warehouse_id rack_id box.id %}">Видалити</a></div>
+        <div><a href="{% url 'box_update' warehouse_id box.id %}">Редагувати</a></div>
+        <div><a href="{% url 'box_delete' warehouse_id box.id %}">Видалити</a></div>
       </td>
       </tr>
       {% endfor %}

@@ -3,16 +3,22 @@
   <head>
     <meta charset="utf-8">
     <title>Вітаю!</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
   </head>
-    <nav>
-      <a href="{% url 'homepage' %}">Головна</a> |
-      <a href="{% url 'warehouse_list' %}">Склади</a> |
-      <a href="{% url 'worker_list' 0 %}">Робітники</a> |
-      <a href="{% url 'rack_list' 0 %}">Полиці</a> |
-      <a href="{% url 'box_list' 0 0 %}">Ящики</a> |
-      <a href="{% url 'weapon_list' %}">Зброя</a> 
+  <body>
+    <nav class='navMenu'>
+      {% load static %}
+      <span><img src="{% static 'media/logo2.png' %}" width='60' height='60'/></span>
+      <a class='navElm' href="{% url 'homepage' %}">Головна</a>
+      <a class='navElm' href="{% url 'warehouse_list' %}">Склади</a>
+      <a class='navElm' href="{% url 'worker_list' 0 %}">Робітники</a>
+      <a class='navElm' href="{% url 'box_list' 0 %}">Ящики</a>
+      <a class='navElm' href="{% url 'weapon_list' %}">Зброя</a>
+      <a class='navElm' href="{% url 'country_list' %}">Країни</a>
+      <a class='navElm' href="{% url 'supplier_list' %}">Постачальники</a>
     </nav>
     <h1>Головна сторінка</h1>
-    <div>Вітаю на головній сторінці мого сайту!</div>
+    <p>Вітаю на головній сторінці мого сайту!</p>
   </body>
 </html>

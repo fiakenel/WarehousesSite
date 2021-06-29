@@ -1,0 +1,86 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+body {
+  color: white;
+  background: #272727;
+  font-family: "Montserrat", sans-serif;
+}
+img {float:left}
+
+.navMenu {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
+.navElm {
+  float: left;
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 20px 16px;
+  text-decoration: none;
+}
+
+.navElm:hover {
+  color: #fddb3a;
+  background-color: #111;
+}
+button:hover, input[type='submit']:hover {
+  color: #fddb3a;
+  background-color: #111;
+}
+
+button, input[type='submit'] {
+  background-color: #333;
+  border-radius: 10px;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+td > input, table > input, select {
+  width: 100%;
+  padding: 6px;
+  border-radius: 10px;
+}
+table{
+  padding: 10px;
+}
+table.show{
+  width: 98%;
+  margin: auto;
+}
+.show tr:hover {background-color: #111;}
+.show tr:nth-child(odd) {background-color: #111;}
+p {padding: 5px 15px;}
+a {
+  float: left;
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 10px 16px;
+  text-decoration: none;
+}
+a:hover {
+  color: #fddb3a;
+}
+
+h1 {
+  padding: 20px 30px;
+}
+
+form > div {
+  padding: 15px 15px;
+}

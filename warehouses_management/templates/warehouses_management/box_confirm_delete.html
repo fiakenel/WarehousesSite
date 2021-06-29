@@ -2,14 +2,18 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Полиці</title>
+    <title>Ящик</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
   </head>
   <body>
-    <h1>Видалити полицю</h1>
+    <h1>Видалити ящик</h1>
     <form method='post'>
       {% csrf_token %}
-      <p>Увага, {{ object }} буде видалена. Продовжити?</p>
+      <p>Увага, ящик {{ object }} буде видаленo. Продовжити?</p>
+      <div>
       <input type='submit' value='Підтвердити'>
+      </div>
     </form>
   </body>
 </html>
